@@ -1,0 +1,12 @@
+base_view: analytics_hr_bi__fact_employee_monthly_costs
+
+cache_policy: default_policy
+# required_access_grants: [ bu_access ]
+default_filters:
+  analytics_hr_bi__dim_employee.country:
+    user_attribute: country
+
+joins:
+  analytics_hr_bi__dim_employee:
+    manager_dim: {}
+    employee_manager_target: {}

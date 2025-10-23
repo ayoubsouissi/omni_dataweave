@@ -1,0 +1,10 @@
+default_cache_policy: default_policy
+
+# access_grants:
+#   bu_access:
+#     user_attribute: bu
+#     allowed_values: [ HRRR ]
+cache_policies:
+  default_policy:
+    max_cache_age: 24 hours
+    filter_suggestions_must_obey_policy: true

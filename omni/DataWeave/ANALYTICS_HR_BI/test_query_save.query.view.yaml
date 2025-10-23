@@ -1,0 +1,44 @@
+# Reference this view as test_query_save
+label: Test Query Save
+
+schema: ANALYTICS_HR_BI
+sql: |-
+  SELECT "analytics_hr_bi__dim_employee"."EMPLOYEE_ID" AS "analytics_hr_bi__dim_employee.employee_id",
+      "analytics_hr_bi__fact_employee_monthly_costs"."MONTH" AS "analytics_hr_bi__fact_employee_monthly_costs.month",
+      "analytics_hr_bi__fact_employee_monthly_costs"."EMPLOYEECOUNT" AS "analytics_hr_bi__fact_employee_monthly_costs.employeecount",
+      "analytics_hr_bi__dim_employee"."CC_START_DATE" AS "analytics_hr_bi__dim_employee.cc_start_date",
+      "analytics_hr_bi__dim_employee"."CC_END_DATE" AS "analytics_hr_bi__dim_employee.cc_end_date",
+      LEFT("analytics_hr_bi__fact_employee_monthly_costs.month",4) AS year_trim,
+      CASE WHEN (IFNULL(cc_end_date, TO_DATE('9999-12-31')) > TO_DATE(CONCAT(TO_CHAR(year_trim),'-01-01')) AND (LEFT(cc_start_date,4) < year_trim)) THEN 1 ELSE 0 END AS Present_Before_Year_Start
+  FROM "ANALYTICS_HR_BI"."FACT_EMPLOYEE_MONTHLY_COSTS" AS "analytics_hr_bi__fact_employee_monthly_costs"
+      LEFT JOIN "ANALYTICS_HR_BI"."DIM_EMPLOYEE" AS "analytics_hr_bi__dim_employee" ON "analytics_hr_bi__fact_employee_monthly_costs"."EMPLOYEE_ID" = "analytics_hr_bi__dim_employee"."EMPLOYEE_ID"
+  WHERE "analytics_hr_bi__dim_employee"."EMPLOYEE_ID" IN ('366_1', '1360_1', '18_1')
+  GROUP BY 5, 4, 1, 3, 2
+  ORDER BY 4 DESC NULLS LAST
+  LIMIT 1000
+
+dimensions:
+  analytics_hr_bi__dim_employee_employee_id:
+    sql: '"analytics_hr_bi__dim_employee.employee_id"'
+
+  analytics_hr_bi__fact_employee_monthly_costs_month:
+    sql: '"analytics_hr_bi__fact_employee_monthly_costs.month"'
+
+  analytics_hr_bi__fact_employee_monthly_costs_employeecount:
+    sql: '"analytics_hr_bi__fact_employee_monthly_costs.employeecount"'
+
+  analytics_hr_bi__dim_employee_cc_start_date:
+    sql: '"analytics_hr_bi__dim_employee.cc_start_date"'
+
+  analytics_hr_bi__dim_employee_cc_end_date:
+    sql: '"analytics_hr_bi__dim_employee.cc_end_date"'
+
+  year_trim:
+    sql: '"YEAR_TRIM"'
+
+  present_before_year_start:
+    sql: '"PRESENT_BEFORE_YEAR_START"'
+
+measures:
+  count:
+    aggregate_type: count

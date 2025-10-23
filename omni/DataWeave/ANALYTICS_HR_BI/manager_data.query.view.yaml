@@ -1,0 +1,11 @@
+# Reference this view as manager_data
+schema: ANALYTICS_HR_BI
+sql: |
+  SELECT employeenumber, jobrole FROM analytics_hr_bi.dim_employee
+
+dimensions:
+  employeenumber:
+    sql: '"EMPLOYEENUMBER"'
+
+  jobrole:
+    sql: '"JOBROLE"'

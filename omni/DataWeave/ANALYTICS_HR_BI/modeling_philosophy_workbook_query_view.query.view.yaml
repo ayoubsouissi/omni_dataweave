@@ -1,0 +1,35 @@
+# Reference this view as modeling_philosophy_workbook_query_view
+label: Modeling Philosophy workbook query view
+
+schema: ANALYTICS_HR_BI
+query:
+  fields:
+    analytics_hr_bi__dim_employee.age: age
+    analytics_hr_bi__dim_employee.country: country
+    analytics_hr_bi__dim_employee.department: department
+    analytics_hr_bi__dim_employee.gender: gender
+    analytics_hr_bi__dim_employee.country_department_: country_department_
+    calc_2: average_age_by_country
+  base_view: analytics_hr_bi__fact_employee_monthly_costs
+  calculations:
+    calc_2:
+      sql: OMNI_FX_AVERAGE_IFS(OMNI_OFFSET(${analytics_hr_bi__dim_employee.age},
+        -536870911, 0, 1073741823, 1),
+        OMNI_OFFSET(${analytics_hr_bi__dim_employee.country}, -536870911, 0,
+        1073741823, 1), ${analytics_hr_bi__dim_employee.country})
+      label: Average age by country
+  sorts:
+    - field: analytics_hr_bi__dim_employee.age
+  topic: HR_Analytics
+
+dimensions:
+  age: {}
+  country: {}
+  department: {}
+  gender: {}
+  country_department_: {}
+  average_age_by_country: {}
+
+measures:
+  count:
+    aggregate_type: count

@@ -1,0 +1,48 @@
+# Reference this view as analytics_hr_bi__fact_employee_costs
+schema: ANALYTICS_HR_BI
+table_name: FACT_EMPLOYEE_COSTS
+
+dimensions:
+  date:
+    sql: '"DATE"'
+
+  employee_id:
+    sql: '"EMPLOYEE_ID"'
+    format: ID
+
+  employeecount:
+    sql: '"EMPLOYEECOUNT"'
+
+  dailyincome:
+    sql: '"DAILYINCOME"'
+
+  dailybonus:
+    sql: '"DAILYBONUS"'
+
+  dailycomission:
+    sql: '"DAILYCOMISSION"'
+
+measures:
+  count:
+    aggregate_type: count
+
+  dailyincome_sum:
+    sql: ${analytics_hr_bi__fact_employee_costs.dailyincome}
+    aggregate_type: sum
+
+#The info below was pulled from your dbt repository and is read-only.
+dbt:
+  name: fact_employee_costs
+  target_schema: ANALYTICS
+  config:
+    schema: HR_BI
+    materialized: table
+  code: |-
+    select date_dim as date
+        ,employee_id
+        ,employeecount
+        ,dailyincome
+        ,dailybonus
+        ,dailycomission
+    from {{ref('one_big_table')}}
+    order by employee_id

@@ -1,0 +1,49 @@
+# Reference this view as analytics_hr_bi__fact_employee_monthly_costs
+schema: ANALYTICS_HR_BI
+table_name: FACT_EMPLOYEE_MONTHLY_COSTS
+
+dimensions:
+  month:
+    sql: '"MONTH"'
+
+  employee_id:
+    sql: '"EMPLOYEE_ID"'
+    format: ID
+
+  employeecount:
+    sql: '"EMPLOYEECOUNT"'
+
+  salary:
+    sql: '"SALARY"'
+
+  bonus:
+    sql: '"BONUS"'
+
+  comission:
+    sql: '"COMISSION"'
+
+measures:
+  count:
+    aggregate_type: count
+
+  comission_sum:
+    sql: ${analytics_hr_bi__fact_employee_monthly_costs.comission}
+    aggregate_type: sum
+
+#The info below was pulled from your dbt repository and is read-only.
+dbt:
+  name: fact_employee_monthly_costs
+  target_schema: ANALYTICS
+  config:
+    schema: HR_BI
+    materialized: table
+  code: |-
+    select to_date(left(date_dim,7) || '-01') as month
+        ,employee_id
+        ,sum(employeecount) as EmployeeCount
+        ,sum(dailyincome) as Salary
+        ,sum(dailybonus) as Bonus
+        ,sum(dailycomission) as Comission
+    from {{ref('one_big_table')}}
+    group by 1,2
+    order by employee_id

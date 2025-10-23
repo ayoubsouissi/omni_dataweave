@@ -1,0 +1,42 @@
+# Reference this view as employee_vs_manager_targets
+uploaded_table_name: Employee vs Manager Targets.csv::9ac789e5-3906-4060-aacd-9a9348d8ea2b
+
+dimensions:
+  department:
+    sql: '"Department"'
+    display_order: 0
+    primary_key: true
+
+  job_role:
+    sql: '"Job Role"'
+    display_order: 1
+
+  red_zone_min:
+    sql: '"RedZoneMin"'
+    display_order: 2
+
+  red_zone_max:
+    sql: '"RedZoneMax"'
+    display_order: 3
+
+measures:
+  count:
+    aggregate_type: count
+
+  red_zone_min_average:
+    sql: ${employee_vs_manager_targets.red_zone_min}
+    aggregate_type: average
+
+  red_zone_max_average:
+    sql: ${employee_vs_manager_targets.red_zone_max}
+    aggregate_type: average
+
+  red_zone_min_emp:
+    sql: COALESCE(${employee_vs_manager_targets.red_zone_min_average}, 0) *
+      COALESCE(${analytics_hr_bi__dim_employee.manager_count_distinct}, 0)
+    label: Red_Zone_Min_Emp
+
+  red_zone_max_emp:
+    sql: COALESCE(${employee_vs_manager_targets.red_zone_max_average}, 0) *
+      COALESCE(${analytics_hr_bi__dim_employee.manager_count_distinct}, 0)
+    label: Red_Zone_Max_Emp
