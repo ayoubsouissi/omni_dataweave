@@ -1,0 +1,5 @@
+# this is the Materialized_view topic
+base_view: analytics_hr_bi__fact_employee_costs
+
+joins:
+  analytics_hr_bi__dim_employee: {}

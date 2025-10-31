@@ -47,3 +47,15 @@ dbt:
     from {{ref('one_big_table')}}
     group by 1,2
     order by employee_id
+
+materialized_query:
+  fields:
+    [
+      "analytics_hr_bi__fact_employee_costs.date[month]",
+      analytics_hr_bi__fact_employee_costs.employee_id,
+      analytics_hr_bi__fact_employee_costs.employeecount,
+      analytics_hr_bi__fact_employee_costs.dailyincome,
+      analytics_hr_bi__fact_employee_costs.dailybonus,
+      analytics_hr_bi__fact_employee_costs.dailycomission
+    ]
+  base_view: analytics_hr_bi__fact_employee_costs
