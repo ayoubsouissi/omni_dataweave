@@ -4,3 +4,5 @@ cache_policies:
   default_policy:
     max_cache_age: 30 hours
     filter_suggestions_must_obey_policy: true
+
+ai_chat_topics: [ HR Analytics ]
