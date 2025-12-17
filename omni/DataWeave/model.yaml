@@ -5,4 +5,4 @@ cache_policies:
     max_cache_age: 30 hours
     filter_suggestions_must_obey_policy: true
 
-ai_chat_topics: [ HR_Analytics ]
+ai_chat_topics: [ Materialized_view, HR_Analytics ]
