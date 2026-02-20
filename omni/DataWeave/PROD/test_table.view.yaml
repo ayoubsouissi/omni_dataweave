@@ -1,0 +1,14 @@
+# Reference this view as prod__test_table
+schema: PROD
+table_name: TEST_TABLE
+
+dimensions:
+  element:
+    sql: '"ELEMENT"'
+
+  value:
+    sql: '"VALUE"'
+
+measures:
+  count:
+    aggregate_type: count
