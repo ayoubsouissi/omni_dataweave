@@ -1,0 +1,5 @@
+# Reference this view as omni_dbt_hr_bi__fact_employee_costs
+measures:
+  dailyincome_sum:
+    sql: ${omni_dbt_hr_bi__fact_employee_costs.dailyincome}
+    aggregate_type: sum

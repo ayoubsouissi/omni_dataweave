@@ -1,0 +1,5 @@
+# Reference this view as analytics_hr_bi__fact_employee_costs
+measures:
+  dailyincome_sum:
+    sql: ${analytics_hr_bi__fact_employee_costs.dailyincome}
+    aggregate_type: sum

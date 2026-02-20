@@ -1,0 +1,17 @@
+# Reference this view as analytics_hr_bi__fact_employee_monthly_costs
+measures:
+  comission_sum:
+    sql: ${analytics_hr_bi__fact_employee_monthly_costs.comission}
+    aggregate_type: sum
+
+materialized_query:
+  fields:
+    [
+      "analytics_hr_bi__fact_employee_costs.date[month]",
+      analytics_hr_bi__fact_employee_costs.employee_id,
+      analytics_hr_bi__fact_employee_costs.employeecount,
+      analytics_hr_bi__fact_employee_costs.dailyincome,
+      analytics_hr_bi__fact_employee_costs.dailybonus,
+      analytics_hr_bi__fact_employee_costs.dailycomission
+    ]
+  base_view: analytics_hr_bi__fact_employee_costs

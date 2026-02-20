@@ -1,0 +1,43 @@
+# Reference this view as analytics_hr_bi__dim_employee
+dimensions:
+  country_department_:
+    sql: CONCAT(COALESCE(CONCAT(COALESCE(${analytics_hr_bi__dim_employee.country},
+      ''), ' - '), ''), COALESCE(${analytics_hr_bi__dim_employee.department},
+      ''))
+    label: "Country Department "
+
+  manager_jobrole:
+    sql: b."JOBROLE"
+
+  age_bin:
+    sql: ${analytics_hr_bi__dim_employee.age}
+    bin_boundaries: [ 18, 20, 30, 40, 50, 60 ]
+    label: Age Bins
+
+measures:
+  age_average:
+    sql: ${analytics_hr_bi__dim_employee.age}
+    aggregate_type: average
+
+  age_sum:
+    sql: ${analytics_hr_bi__dim_employee.age}
+    aggregate_type: sum
+
+  monthlyincome_sum:
+    sql: ${analytics_hr_bi__dim_employee.monthlyincome}
+    aggregate_type: sum
+
+  custom_measure_0:
+    sql: COUNT(DISTINCT ${analytics_hr_bi__dim_employee.employee_id}) OVER
+      (PARTITION BY ${analytics_hr_bi__dim_employee.manager})
+    aggregate_type: average
+
+  employee_id_count_distinct:
+    sql: ${analytics_hr_bi__dim_employee.employee_id}
+    format: ID
+    aggregate_type: count_distinct
+
+  manager_count_distinct:
+    sql: ${analytics_hr_bi__dim_employee.manager}
+    aggregate_type: count_distinct
+custom_compound_primary_key_sql: [ "${analytics_hr_bi__dim_employee.employee_id}" ]
