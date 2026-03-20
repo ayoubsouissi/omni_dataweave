@@ -1,0 +1,74 @@
+# Reference this view as prod__sirh
+schema: PROD
+table_name: SIRH
+
+dimensions:
+  age:
+    sql: '"AGE"'
+
+  department:
+    sql: '"DEPARTMENT"'
+
+  education:
+    sql: '"EDUCATION"'
+
+  educationfield:
+    sql: '"EDUCATIONFIELD"'
+
+  employeecount:
+    sql: '"EMPLOYEECOUNT"'
+
+  employeenumber:
+    sql: '"EMPLOYEENUMBER"'
+
+  gender:
+    sql: '"GENDER"'
+
+  joblevel:
+    sql: '"JOBLEVEL"'
+
+  jobrole:
+    sql: '"JOBROLE"'
+
+  manager:
+    sql: '"MANAGER"'
+
+  maritalstatus:
+    sql: '"MARITALSTATUS"'
+
+  monthlyincome:
+    sql: '"MONTHLYINCOME"'
+
+  yearsincurrentrole:
+    sql: '"YEARSINCURRENTROLE"'
+
+  yearssincelastpromotion:
+    sql: '"YEARSSINCELASTPROMOTION"'
+
+  yearswithcurrmanager:
+    sql: '"YEARSWITHCURRMANAGER"'
+
+  firstname:
+    sql: '"FIRSTNAME"'
+
+  lastname:
+    sql: '"LASTNAME"'
+
+  country:
+    sql: '"COUNTRY"'
+
+  comission:
+    sql: '"COMISSION"'
+
+  bonus_percent:
+    sql: '"BONUS_PERCENT"'
+
+  cc_start_date:
+    sql: '"CC_START_DATE"'
+
+  cc_end_date:
+    sql: '"CC_END_DATE"'
+
+measures:
+  count:
+    aggregate_type: count
